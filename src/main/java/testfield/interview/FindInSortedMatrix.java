@@ -2,7 +2,7 @@ package testfield.interview;
 
 class FindInSortedMatrix {
 
-  static boolean findInSortedMatrix(int[][] matrix, int value) {
+  private static boolean findInSortedMatrix(int[][] matrix, int value) {
     int rows = matrix.length;
     int cols = matrix[0].length;
     int start = 0;
@@ -42,13 +42,42 @@ class FindInSortedMatrix {
       }
     }
     return false;
-
   }
+
+  private static boolean findInSortedMatrix2(int[][] matrix, int value) {
+    int rows = matrix.length;
+    int cols = matrix[0].length;
+
+    int start = 0;
+    int end = rows * cols;
+
+    while (start <= end) {
+      int mid = (start + end) / 2;
+      int row = mid / rows;
+      int col = mid % cols;
+      int v = matrix[row][col];
+
+      if (v == value) {
+        return true;
+      }
+
+      if (v < value) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+    }
+
+    return false;
+  }
+
 
   public static void main(String[] args) {
 
-    System.out.println(
-        findInSortedMatrix(new int[][] {{1, 2, 3}, {6, 8, 9}, {10, 11, 22}, {44, 55, 66}}, 44));
-    System.out.println(findInSortedMatrix(new int[][] {{1, 2, 3}, {6, 8, 9}}, 5));
+    System.out.println(findInSortedMatrix(new int[][]{{1, 2, 3}, {6, 8, 9}, {10, 11, 22}, {44, 55, 66}}, 2));
+    System.out.println(findInSortedMatrix(new int[][]{{1, 2, 3}, {6, 8, 9}}, 5));
+
+    System.out.println(findInSortedMatrix2(new int[][]{{1, 2, 3}, {6, 8, 9}, {10, 11, 22}, {44, 55, 66}}, 44));
+    System.out.println(findInSortedMatrix2(new int[][]{{1, 2, 3}, {6, 8, 9}}, 5));
   }
 }
